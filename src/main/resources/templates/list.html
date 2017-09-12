@@ -1,0 +1,95 @@
+<div class="generic-container">
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading"><span class="lead">Gestion de Usuarios </span></div>
+		<div class="panel-body">
+	        <div class="formcontainer">
+	            <div class="alert alert-success" role="alert" ng-if="ctrl.successMessage">{{ctrl.successMessage}}</div>
+	            <div class="alert alert-danger" role="alert" ng-if="ctrl.errorMessage">{{ctrl.errorMessage}}</div>
+	            <form ng-submit="ctrl.submit()" name="myForm" class="form-horizontal">
+	                <input type="hidden" ng-model="ctrl.user.id" />
+	                <div class="row">
+	                    <div class="form-group col-md-12">
+	                        <label class="col-md-2 control-lable" for="uname">Nombre</label>
+	                        <div class="col-md-7">
+	                            <input type="text" ng-model="ctrl.user.nombre" id="uname" class="username form-control input-sm" placeholder="Escriba su nombre" required="required" maxlength="15"/>
+	                        </div>
+	                    </div>
+	                </div>
+
+                     <div class="row">
+	                    <div class="form-group col-md-12">
+	                        <label class="col-md-2 control-lable" for="apellido_paterno">Apellido Paterno</label>
+	                        <div class="col-md-7">
+	                            <input type="text" ng-model="ctrl.user.apellido_paterno" id="apellido_paterno" class="form-control input-sm" placeholder="Escriba Apellido paterno." required="required" maxlength="15"/>
+	                        </div>
+	                    </div>
+	                </div>
+                   
+                       <div class="row">
+	                    <div class="form-group col-md-12">
+	                        <label class="col-md-2 control-lable" for="apellido_paterno">Apellido Materno</label>
+	                        <div class="col-md-7">
+	                            <input type="text" ng-model="ctrl.user.apellido_materno" id="apellido_materno" class="form-control input-sm" placeholder="Escriba Apellido materno." maxlength="15"/>
+	                        </div>
+	                    </div>
+	                </div>
+
+	                <div class="row">
+	                    <div class="form-group col-md-12">
+	                        <label class="col-md-2 control-lable" for="edad">Edad</label>
+	                        <div class="col-md-7">
+	                            <input type="text" ng-model="ctrl.user.edad" id="apellido_paterno" class="form-control input-sm" placeholder="Escriba edad."  ng-pattern="ctrl.onlyIntegers" maxlength="3"/>
+	                        </div>
+	                    </div>
+	                </div>
+	
+	               <div class="row">
+	                     <div class="form-group col-md-12">
+	                      <label class="col-md-2 control-lable" for="fecha">Fecha Nacimiento</label>
+				            <div class="col-md-7">
+				               <input type="date" class="form-control" uib-datepicker-popup="" ng-model="ctrl.user.fecha_nacimiento" is-open="status.opened" close-text="Close" />
+                               <span class="input-group-btn">
+                                 <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                               </span>
+				            </div>
+				        </div>
+	                </div>
+	                <div class="row">
+	                    <div class="form-actions floatRight">
+	                        <input type="submit"  value="{{!ctrl.user.id ? 'Agregar' : 'Actualizar'}}" class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid || myForm.$pristine"/>
+	                        <button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-sm" ng-disabled="myForm.$pristine">Limpiar</button>
+	                    </div>
+	                </div>
+	            </form>
+    	    </div>
+		</div>	
+    </div>
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading"><span class="lead">Lista de Usuarios </span></div>
+        
+		<div class="panel-body">
+			<div class="table-responsive">
+		        <table class="table table-hover">
+		            <thead>
+		            <tr>
+		                <th>Nombre</th>
+		                <th>Fecha Nacimiento</th>
+		                <th width="100"></th>
+		                <th width="100"></th>
+		            </tr>
+		            </thead>
+		            <tbody>
+		            <tr ng-repeat="u in ctrl.getAllUsers()">
+		                <td>{{u.nombre}}</td>
+		                <td>{{u.fecha_nacimiento}}</td>
+		                <td><button type="button" ng-click="ctrl.editUser(u.id)" class="btn btn-success btn-xs">Editar</button></td>
+		                <td><button type="button" ng-click="ctrl.removeUser(u.id)" class="btn btn-danger btn-xs">Eliminar</button></td>
+		            </tr>
+		            </tbody>
+		        </table>		
+			</div>
+		</div>
+    </div>
+</div>
