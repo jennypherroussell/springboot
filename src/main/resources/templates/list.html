@@ -51,10 +51,10 @@
 	                     
 						      <div class="col-md-7">
 						        <p class="input-group">
-						         <input is-open="opened" type="text" class="username form-control input-sm" datepicker-popup="dd/MM/yyyy" ng-model="ctrl.user.fecha_nacimiento" />
-								    <span class="input-group-btn">
-								        <button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
-								    </span>
+						        <input type="date" class="form-control" ng-focus="RejectEnter();" uib-datepicker-popup="dd/MM/yyyy" ng-model="$parent.ctrl.user.fecha_nacimiento" is-open="status.opened" close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" id="btnCal"  ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
 						        </p>
 						      </div>
 						  
@@ -77,6 +77,7 @@
 	                
 	                <div class="row">
 	                    <div class="form-actions floatRight">
+	                     <button type="button" ng-click="ctrl.buscar()" class="btn btn-primary btn-sm">Buscar</button>
 	                        <input type="submit"  value="{{!ctrl.user.id ? 'Agregar' : 'Actualizar'}}" class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid || myForm.$pristine"/>
 	                        <button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-sm" ng-disabled="myForm.$pristine">Limpiar</button>
 	                    </div>

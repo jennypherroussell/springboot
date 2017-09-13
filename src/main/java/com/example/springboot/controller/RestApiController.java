@@ -1,5 +1,10 @@
 package com.example.springboot.controller;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -33,6 +38,7 @@ public class RestApiController {
 	@Autowired
 	UserService userService;
 
+	@SuppressWarnings("unchecked")
 	@ApiOperation(value = "Lista de Usuarios",response = Iterable.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Se recibio la lista de forma correcta"),
@@ -44,6 +50,8 @@ public class RestApiController {
 	@RequestMapping(value = "/user/", method = RequestMethod.GET)
 	public ResponseEntity<List<User>> listAllUsers() {
 		List<User> users = userService.findAllUsers();
+	
+			
 		if (users.isEmpty()) {
 			return new ResponseEntity(HttpStatus.NO_CONTENT);
 			
