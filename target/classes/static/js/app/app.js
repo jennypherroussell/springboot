@@ -1,4 +1,4 @@
-var app = angular.module('santanderApp',['ui.router','ngStorage']);
+var app = angular.module('santanderApp',['ui.router','ngStorage','ui.bootstrap',]);
 
 app.constant('urls', {
     BASE: 'http://localhost:8090',

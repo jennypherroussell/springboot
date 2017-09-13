@@ -14,6 +14,7 @@ angular.module('santanderApp').controller('UserController',
         self.removeUser = removeUser;
         self.editUser = editUser;
         self.reset = reset;
+        self.buscar = buscar;
 
         self.successMessage = '';
         self.errorMessage = '';
@@ -22,33 +23,33 @@ angular.module('santanderApp').controller('UserController',
         self.onlyIntegers = /^\d+$/;
         self.onlyNumbers = /^\d+([,.]\d+)?$/;
         
-        
-        // grab today and inject into field
-        $scope.today = function() {
-          $scope.fecha_nacimiento = new Date();
-        };
-        
-        // run today() function
-        $scope.today();
-
-        // setup clear
         $scope.clear = function () {
           $scope.fecha_nacimiento = null;
         };
 
-        // open min-cal
-        $scope.open = function($event) {
-      	  $event.preventDefault();
-          $event.stopPropagation();
+      
+        
+        $scope.status = {
+        	    opened: false
+        	}
+        
+        $scope.open2 = function() {
+            $scope.opened = true;
+          };
 
+          
+        // open min-cal
+        $scope.openxxx = function($event) {
+        
           $scope.opened = true;
         };
         
-        // handle formats
-        $scope.formats = ['dd/MM/yyyy', 'shortDate'];
+        $scope.open = function($event) {
+            $scope.status.opened = true;
+          };
+          
         
-        // assign custom format
-        $scope.format = $scope.formats[0];
+          $scope.format = 'dd/MM/yyyy';
         
         
 
@@ -62,6 +63,13 @@ angular.module('santanderApp').controller('UserController',
                
             }
         }
+        
+        $scope.RejectEnter = function() {
+        
+          document.getElementById("btnCal").focus();
+          document.getElementById("btnCal").click();
+          return false;
+          };
 
         function createUser(user) {
            
@@ -122,6 +130,11 @@ angular.module('santanderApp').controller('UserController',
             return UserService.getAllUsers();
         }
 
+        function buscar(){
+        	
+        	getAllUsers();
+        }
+        
         function editUser(id) {
             self.successMessage='';
             self.errorMessage='';
