@@ -12,7 +12,7 @@
 	                    <div class="form-group col-md-12">
 	                        <label class="col-md-2 control-lable" for="uname">Nombre</label>
 	                        <div class="col-md-7">
-	                            <input type="text" ng-model="ctrl.user.nombre" id="uname" class="username form-control input-sm" placeholder="Escriba su nombre" required="required" maxlength="15"/>
+	                            <input type="text" ng-model="ctrl.user.nombre" id="uname" class="username form-control input-sm" placeholder="Escriba su nombre" required="required" maxlength="15" ng-pattern="/[aA-zZ\s]$/"/>
 	                        </div>
 	                    </div>
 	                </div>
@@ -21,7 +21,7 @@
 	                    <div class="form-group col-md-12">
 	                        <label class="col-md-2 control-lable" for="apellido_paterno">Apellido Paterno</label>
 	                        <div class="col-md-7">
-	                            <input type="text" ng-model="ctrl.user.apellido_paterno" id="apellido_paterno" class="form-control input-sm" placeholder="Escriba Apellido paterno." required="required" maxlength="15"/>
+	                            <input type="text" ng-model="ctrl.user.apellido_paterno" id="apellido_paterno" class="form-control input-sm" placeholder="Escriba Apellido paterno." required="required" maxlength="15" ng-pattern="/[aA-zZ\s]$/"/>
 	                        </div>
 	                    </div>
 	                </div>
@@ -30,7 +30,7 @@
 	                    <div class="form-group col-md-12">
 	                        <label class="col-md-2 control-lable" for="apellido_paterno">Apellido Materno</label>
 	                        <div class="col-md-7">
-	                            <input type="text" ng-model="ctrl.user.apellido_materno" id="apellido_materno" class="form-control input-sm" placeholder="Escriba Apellido materno." maxlength="15"/>
+	                            <input type="text" ng-model="ctrl.user.apellido_materno" id="apellido_materno" class="form-control input-sm" placeholder="Escriba Apellido materno." maxlength="15" ng-pattern="/[aA-zZ\s]$/"/>
 	                        </div>
 	                    </div>
 	                </div>
