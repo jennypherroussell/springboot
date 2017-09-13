@@ -87,6 +87,9 @@ angular.module('santanderApp').factory('UserService',
                     );
                 return deferred.promise;
             }
+            
+            
+            
 
             function removeUser(id) {
                var deferred = $q.defer();

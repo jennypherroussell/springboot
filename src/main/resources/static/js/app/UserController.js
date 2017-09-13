@@ -14,6 +14,7 @@ angular.module('santanderApp').controller('UserController',
         self.removeUser = removeUser;
         self.editUser = editUser;
         self.reset = reset;
+        self.buscar = buscar;
 
         self.successMessage = '';
         self.errorMessage = '';
@@ -26,6 +27,8 @@ angular.module('santanderApp').controller('UserController',
           $scope.fecha_nacimiento = null;
         };
 
+      
+        
         $scope.status = {
         	    opened: false
         	}
@@ -36,17 +39,17 @@ angular.module('santanderApp').controller('UserController',
 
           
         // open min-cal
-        $scope.open = function($event) {
+        $scope.openxxx = function($event) {
         
           $scope.opened = true;
         };
         
+        $scope.open = function($event) {
+            $scope.status.opened = true;
+          };
+          
         
-        // handle formats
-        $scope.formats = ['dd/MM/yyyy', 'shortDate'];
-        
-        // assign custom format
-        $scope.format = $scope.formats[0];
+          $scope.format = 'dd/MM/yyyy';
         
         
 
@@ -60,6 +63,13 @@ angular.module('santanderApp').controller('UserController',
                
             }
         }
+        
+        $scope.RejectEnter = function() {
+        
+          document.getElementById("btnCal").focus();
+          document.getElementById("btnCal").click();
+          return false;
+          };
 
         function createUser(user) {
            
@@ -120,6 +130,11 @@ angular.module('santanderApp').controller('UserController',
             return UserService.getAllUsers();
         }
 
+        function buscar(){
+        	
+        	getAllUsers();
+        }
+        
         function editUser(id) {
             self.successMessage='';
             self.errorMessage='';
