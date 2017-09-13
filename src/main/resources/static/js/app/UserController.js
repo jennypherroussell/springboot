@@ -22,27 +22,25 @@ angular.module('santanderApp').controller('UserController',
         self.onlyIntegers = /^\d+$/;
         self.onlyNumbers = /^\d+([,.]\d+)?$/;
         
-        
-        // grab today and inject into field
-        $scope.today = function() {
-          $scope.fecha_nacimiento = new Date();
-        };
-        
-        // run today() function
-        $scope.today();
-
-        // setup clear
         $scope.clear = function () {
           $scope.fecha_nacimiento = null;
         };
 
+        $scope.status = {
+        	    opened: false
+        	}
+        
+        $scope.open2 = function() {
+            $scope.opened = true;
+          };
+
+          
         // open min-cal
         $scope.open = function($event) {
-      	  $event.preventDefault();
-          $event.stopPropagation();
-
+        
           $scope.opened = true;
         };
+        
         
         // handle formats
         $scope.formats = ['dd/MM/yyyy', 'shortDate'];

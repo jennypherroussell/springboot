@@ -39,22 +39,42 @@
 	                    <div class="form-group col-md-12">
 	                        <label class="col-md-2 control-lable" for="edad">Edad</label>
 	                        <div class="col-md-7">
-	                            <input type="text" ng-model="ctrl.user.edad" id="apellido_paterno" class="form-control input-sm" placeholder="Escriba edad."  ng-pattern="ctrl.onlyIntegers" maxlength="3"/>
+	                            <input type="number" ng-model="ctrl.user.edad" id="apellido_paterno" class="form-control input-sm" placeholder="Escriba edad." min="12" ng-pattern="ctrl.onlyIntegers" maxlength="3"/>
 	                        </div>
 	                    </div>
 	                </div>
 	
 	               <div class="row">
 	                     <div class="form-group col-md-12">
-	                      <label class="col-md-2 control-lable" for="fecha">Fecha Nacimiento</label>
+	                      <label class="col-md-2 control-lable" for="fecha_nacimiento">Fecha Nacimiento</label>
+	                      <!--DATEPICKER  -->
+	                     
+						      <div class="col-md-7">
+						        <p class="input-group">
+						         <input is-open="opened" type="text" class="username form-control input-sm" datepicker-popup="dd/MM/yyyy" ng-model="ctrl.user.fecha_nacimiento" />
+								    <span class="input-group-btn">
+								        <button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
+								    </span>
+						        </p>
+						      </div>
+						  
+						  <div>
+						</div>
+	                      <!--  -->
+				            </div>
+				        </div>
+	                  <div class="row">
+	                     <div class="form-group col-md-12">
+	                      <label class="col-md-2 control-lable" for="fecha">Foto</label>
 				            <div class="col-md-7">
-				               <input type="date" class="form-control" uib-datepicker-popup="" ng-model="ctrl.user.fecha_nacimiento" is-open="status.opened" close-text="Close" />
-                               <span class="input-group-btn">
-                                 <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                               </span>
+				               <input type="file" ngf-select="" ng-model="foto" name="file" ngf-accept="'image/*'"/>
 				            </div>
 				        </div>
 	                </div>
+	                
+	                
+	                
+	                
 	                <div class="row">
 	                    <div class="form-actions floatRight">
 	                        <input type="submit"  value="{{!ctrl.user.id ? 'Agregar' : 'Actualizar'}}" class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid || myForm.$pristine"/>
@@ -75,7 +95,6 @@
 		            <thead>
 		            <tr>
 		                <th>Nombre</th>
-		                <th>Fecha Nacimiento</th>
 		                <th width="100"></th>
 		                <th width="100"></th>
 		            </tr>
@@ -83,7 +102,6 @@
 		            <tbody>
 		            <tr ng-repeat="u in ctrl.getAllUsers()">
 		                <td>{{u.nombre}}</td>
-		                <td>{{u.fecha_nacimiento}}</td>
 		                <td><button type="button" ng-click="ctrl.editUser(u.id)" class="btn btn-success btn-xs">Editar</button></td>
 		                <td><button type="button" ng-click="ctrl.removeUser(u.id)" class="btn btn-danger btn-xs">Eliminar</button></td>
 		            </tr>
