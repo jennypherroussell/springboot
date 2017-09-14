@@ -25,6 +25,8 @@ angular.module('santanderApp').controller('UserController',
         $scope.namefilter=namefilter;
         $scope.paternofilter=paternofilter;
         $scope.maternofilter=maternofilter;
+        
+     
 
         self.onlyIntegers = /^\d+$/;
         self.onlyNumbers = /^\d+([,.]\d+)?$/;
