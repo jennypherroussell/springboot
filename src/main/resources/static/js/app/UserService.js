@@ -6,6 +6,7 @@ angular.module('santanderApp').factory('UserService',
 
             var factory = {
                 loadAllUsers: loadAllUsers,
+                loadAllUsersByFilter:loadAllUsersByFilter,
                 getAllUsers: getAllUsers,
                 getUser: getUser,
                 createUser: createUser,
@@ -16,17 +17,32 @@ angular.module('santanderApp').factory('UserService',
             return factory;
 
             function loadAllUsers() {
-                console.log('Fetching all users');
+                
                 var deferred = $q.defer();
                 $http.get(urls.USER_SERVICE_API)
                     .then(
                         function (response) {
-                            console.log('Fetched successfully all users');
                             $localStorage.users = response.data;
                             deferred.resolve(response);
                         },
                         function (errResponse) {
-                            console.error('Error while loading users');
+                          
+                            deferred.reject(errResponse);
+                        }
+                    );
+                return deferred.promise;
+            }
+            
+            function loadAllUsersByFilter(user) {
+               var deferred = $q.defer();
+                $http.get(urls.USER_SERVICE_API+"filtered" ,{params: {nombre: user.nombre,apellidoPaterno:user.apellidoPaterno,apellidoMaterno:user.apellidoMaterno}})
+                    .then(
+                        function (response) {
+                            $localStorage.users = response.data;
+                            deferred.resolve(response);
+                        },
+                        function (errResponse) {
+                          
                             deferred.reject(errResponse);
                         }
                     );
@@ -43,11 +59,11 @@ angular.module('santanderApp').factory('UserService',
                 $http.get(urls.USER_SERVICE_API + id)
                     .then(
                         function (response) {
-                            console.log('Fetched successfully User with id :'+id);
+                           
                             deferred.resolve(response.data);
                         },
                         function (errResponse) {
-                            console.error('Error while loading user with id :'+id);
+                           
                             deferred.reject(errResponse);
                         }
                     );
@@ -64,7 +80,7 @@ angular.module('santanderApp').factory('UserService',
                             deferred.resolve(response.data);
                         },
                         function (errResponse) {
-                           console.error('Error while creating User : '+errResponse.data.errorMessage);
+                         
                            deferred.reject(errResponse);
                         }
                     );
@@ -72,7 +88,7 @@ angular.module('santanderApp').factory('UserService',
             }
 
             function updateUser(user, id) {
-                console.log('Updating User with id '+id);
+               
                 var deferred = $q.defer();
                 $http.put(urls.USER_SERVICE_API + id, user)
                     .then(
@@ -81,7 +97,7 @@ angular.module('santanderApp').factory('UserService',
                             deferred.resolve(response.data);
                         },
                         function (errResponse) {
-                            console.error('Error while updating User with id :'+id);
+                           
                             deferred.reject(errResponse);
                         }
                     );

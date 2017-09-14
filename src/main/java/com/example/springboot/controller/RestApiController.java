@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -58,6 +60,27 @@ public class RestApiController {
 		}
 		return new ResponseEntity<List<User>>(users, HttpStatus.OK);
 	}
+	@RequestMapping(value = "/user/filtered", method = RequestMethod.GET)
+	public ResponseEntity<List<User>> listAllUsersFiltered(@RequestParam(value = "nombre", required = false)   String nombre,
+			@RequestParam(value = "apellidoPaterno", required = false)   String apellidoPaterno,
+			@RequestParam(value = "apellidoMaterno", required = false)   String apellidoMaterno) {
+		    
+		    User userFilter=new User();
+		    userFilter.setNombre(nombre);
+		    userFilter.setApellido_paterno(apellidoPaterno);
+            userFilter.setApellido_materno(apellidoMaterno);	
+            
+		List<User> users = userService.findByName(userFilter);
+	
+			
+		if (users.isEmpty()) {
+			return new ResponseEntity(HttpStatus.NO_CONTENT);
+			
+		}
+		return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+	}
+	
+	
 
 
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)

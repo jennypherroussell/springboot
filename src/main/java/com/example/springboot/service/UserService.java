@@ -17,5 +17,6 @@ public interface UserService {
 	void deleteAllUsers();
 
 	List<User> findAllUsers();
+	List<User> findByName(User user);
 
 }

@@ -14,11 +14,17 @@ angular.module('santanderApp').controller('UserController',
         self.removeUser = removeUser;
         self.editUser = editUser;
         self.reset = reset;
+        
         self.buscar = buscar;
 
         self.successMessage = '';
         self.errorMessage = '';
         self.done = false;
+        
+        self.userFilter = {};
+        $scope.namefilter=namefilter;
+        $scope.paternofilter=paternofilter;
+        $scope.maternofilter=maternofilter;
 
         self.onlyIntegers = /^\d+$/;
         self.onlyNumbers = /^\d+([,.]\d+)?$/;
@@ -54,11 +60,11 @@ angular.module('santanderApp').controller('UserController',
         
 
         function submit() {
-          
-            if (self.user.id === undefined || self.user.id === null) {
+           if (self.user.id === undefined || self.user.id === null) {
                
                 createUser(self.user);
-            } else {
+            }
+             else {
                 updateUser(self.user, self.user.id);
                
             }
@@ -72,8 +78,7 @@ angular.module('santanderApp').controller('UserController',
           };
 
         function createUser(user) {
-           
-            UserService.createUser(user)
+        	 UserService.createUser(user)
                 .then(
                     function (response) {
                         
@@ -98,14 +103,14 @@ angular.module('santanderApp').controller('UserController',
                 .then(
                     function (response){
                        
-                        self.successMessage='User updated successfully';
+                        self.successMessage='Se actualizo el usuario correctamente';
                         self.errorMessage='';
                         self.done = true;
                         $scope.myForm.$setPristine();
                     },
                     function(errResponse){
                        
-                        self.errorMessage='Error while updating User '+errResponse.data;
+                        self.errorMessage='Error al actualizar Usuario '+errResponse.data;
                         self.successMessage='';
                     }
                 );
@@ -130,9 +135,29 @@ angular.module('santanderApp').controller('UserController',
             return UserService.getAllUsers();
         }
 
-        function buscar(){
+        function buscar(user){
         	
-        	getAllUsers();
+        	 $scope.userFilter = { 
+        			 nombre :$scope.namefilter.value
+        			 ,apellidoPaterno:$scope.paternofilter.value
+        			 ,apellidoMaterno:$scope.maternofilter.value };
+        	
+        	 UserService.loadAllUsersByFilter($scope.userFilter)
+             .then(
+                 function (response) {
+                     
+                     self.successMessage = 'Lista de Usuarios por filtro';
+                     self.errorMessage='';
+                     self.done = true;
+                     self.user={};
+                     $scope.myForm.$setPristine();
+                 },
+                 function (errResponse) {
+                    
+                     self.errorMessage = 'Error al cargar Usuarios: ' + errResponse.data.errorMessage;
+                     self.successMessage='';
+                 }
+             );
         }
         
         function editUser(id) {
@@ -153,6 +178,8 @@ angular.module('santanderApp').controller('UserController',
             self.user={};
             $scope.myForm.$setPristine(); //reset Form
         }
+       
+        
     }
 
 
