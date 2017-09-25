@@ -1,12 +1,12 @@
 <div class="generic-container">
-    <div class="panel panel-default">
+    <div class="panel panel-info">
         <!-- Default panel contents -->
-        <div class="panel-heading"><span class="lead">Gestion de Perfiles </span></div>
+        <div class="panel-heading "><span class="lead">Gestion de Perfiles </span></div>
 		<div class="panel-body">
 	        <div class="formcontainer">
 	            <div class="alert alert-success" role="alert" ng-if="ctrl.successMessage">{{ctrl.successMessage}}</div>
 	            <div class="alert alert-danger" role="alert" ng-if="ctrl.errorMessage">{{ctrl.errorMessage}}</div>
-	            <form ng-submit="ctrl.submit()" name="myForm" class="form-horizontal">
+	            <form ng-submit="ctrl.submit()" enctype="multipart/form-data" name="myForm" class="form-horizontal">
 	                <input type="hidden" ng-model="ctrl.user.id" />
 	                <div class="row">
 	                    <div class="form-group col-md-12">
@@ -64,12 +64,37 @@
 				            </div>
 				        </div>
 	                  <div class="row">
-	                     <div class="form-group col-md-12">
-	                      <label class="col-md-2 control-lable" for="fecha">Foto</label>
-				            <div class="col-md-7">
-				               <input type="file" ngf-select="" ng-model="foto" name="file" ngf-accept="'image/*'"/>
-				            </div>
-				        </div>
+	                   	  <div class="form-group col-md-12" ngf-drop="" ngf-change="setFoto($file, ctrl.user.)" ngf-pattern="'image/*'">
+            
+            <div class="form-group col-md-12">
+            <label  class="col-md-2 control-lable" for="field_logo">Foto</label>
+                <img data-ng-src="{{'data:' + ctrl.user.fotoContentType + ';base64,' + ctrl.user.foto}}" style="max-height: 100px;" ng-if="ctrl.user.foto" alt="Foto"/>
+                <div ng-if="ctrl.user.foto" class="help-block clearfix">
+                    <span class="pull-left">{{ctrl.user.fotoContentType}}, {{ctrl.user.byteSize(ctrl.user.foto)}}</span>
+                    <button type="button" ng-click="ctrl.user.foto=null;ctrl.user.fotoContentType=null;"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                </div>
+             <div  class="col-md-7">
+               <input type="file" ng-file-select="onFileSelect($files)"   ng-model="ctrl.user.foto" name="file" ngf-accept="'image/*'"/>
+                </div>
+      
+              <span class="progress" ng-show="ctrl.user.foto.progress >= 0">
+                  <div style="width:{{ctrl.user.foto.progress}}%" ng-bind="ctrl.user.foto.progress + '%'" class="ng-binding"></div>
+              </span>
+              <span ng-show="ctrl.user.foto.result">Upload Successful</span>
+              
+                <input type="hidden" class="form-control" name="foto" id="field_logo"
+                    ng-model="ctrl.user.foto"
+                    maxbytes="11000" />
+            <input type="hidden" class="form-control" name="fotoContentType" id="field_fotoContentType"
+                    ng-model="ctrl.user.fotoContentType" />
+                    
+              
+               
+	  </div>
 	                </div>
 	                
 	                
@@ -82,6 +107,10 @@
 	                    </div>
 	                </div>
 	            </form>
+	            
+	          
+   <b>Progress:</b>
+  <progress value="{{progress}}"></progress>
     	    </div>
 		</div>	
     </div>
@@ -116,7 +145,7 @@
 		            <thead>
 		            <tr>
 		                <th>Nombre</th>
-		                <th>Paterno</th> <th>fecha</th>
+		                <th>Foto</th> 
 		                <th width="100"></th>
 		                <th width="100"></th>
 		            </tr>
@@ -124,8 +153,7 @@
 		            <tbody>
 		            <tr ng-repeat="u in ctrl.getAllUsers()">
 		                <td>{{u.nombre}}</td>
-		                <td>{{u.apellido_paterno}}</td>
-		                <td>{{u.fecha_nacimiento}}</td>
+		                <td><img style="max-height: 70px;" ng-src="data:image/JPEG;base64,{{u.foto}}"/></td>
 		                <td><button type="button" ng-click="ctrl.editUser(u.id)" class="btn btn-success btn-xs">Editar</button></td>
 		                <td><button type="button" ng-click="ctrl.removeUser(u.id)" class="btn btn-danger btn-xs">Eliminar</button></td>
 		            </tr>

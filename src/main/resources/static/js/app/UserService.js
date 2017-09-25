@@ -73,6 +73,23 @@ angular.module('santanderApp').factory('UserService',
             function createUser(user) {
                  var deferred = $q.defer();
                  
+               /*  $http({
+                	  method: 'POST',
+                	  url: urls.USER_SERVICE_API,
+                   	  data: {
+                	    user: user
+                	  }
+                	}).then(
+                            function (response) {
+                                loadAllUsers();
+                                deferred.resolve(response.data);
+                            },
+                            function (errResponse) {
+                             
+                               deferred.reject(errResponse);
+                            }
+                        );*/
+                 
                 $http.post(urls.USER_SERVICE_API, user)
                     .then(
                         function (response) {
