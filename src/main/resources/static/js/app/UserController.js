@@ -40,7 +40,6 @@ angular.module('santanderApp').directive("ngFileSelect",function(){
         $scope.namefilter=namefilter;
         $scope.paternofilter=paternofilter;
         $scope.maternofilter=maternofilter;
-        self.setFoto = setFoto;
         self.readAsDataURL=readAsDataURL;
        
         self.onlyIntegers = /^\d+$/;
@@ -139,7 +138,6 @@ angular.module('santanderApp').directive("ngFileSelect",function(){
         	
         	  }
         	  reader.readAsDataURL($scope.file);
-        	  $scope.progress = progress.loaded / progress.total;
         	  toBase64($scope.file, function(base64Data) {
         		  $scope.$apply(function() {
                 	  self.user.foto = base64Data;
@@ -149,7 +147,6 @@ angular.module('santanderApp').directive("ngFileSelect",function(){
         };
      
         $scope.$on("fileProgress", function(e, progress) {
-        	alert("bajo la lluvias");
             $scope.progress = progress.loaded / progress.total;
         });
         
@@ -175,9 +172,7 @@ angular.module('santanderApp').directive("ngFileSelect",function(){
         
           $scope.format = 'dd/MM/yyyy';
         
-        
-
-        function submit() {
+         function submit() {
            if (self.user.id === undefined || self.user.id === null) {
                
                 createUser(self.user);
@@ -195,25 +190,7 @@ angular.module('santanderApp').directive("ngFileSelect",function(){
           return false;
           };
           
-          
-          function setFoto($file, user) {
-        	  alert("hg");
-              if ($file && $file.$error === 'pattern') {
-                  return;
-              }
-              if ($file) {
-                  DataUtils.toBase64($file, function(base64Data) {
-                      $scope.$apply(function() {
-                          user.foto = base64Data;
-                          user.fotoContentType = $file.type;
-                      });
-                  });
-              }
-          }
-
-
-       
-        function createUser(user) {
+       function createUser(user) {
            	user.fotoContentType = 'image/jpeg';
         	console.log(user.foto);
               	 UserService.createUser(user)

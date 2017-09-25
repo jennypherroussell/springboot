@@ -1,165 +1,206 @@
 <div class="generic-container">
-    <div class="panel panel-info">
-        <!-- Default panel contents -->
-        <div class="panel-heading "><span class="lead">Gestion de Perfiles </span></div>
+	<div class="panel panel-info">
+		<!-- Default panel contents -->
+		<div class="panel-heading ">
+			<span class="lead">Gestion de Perfiles </span>
+		</div>
 		<div class="panel-body">
-	        <div class="formcontainer">
-	            <div class="alert alert-success" role="alert" ng-if="ctrl.successMessage">{{ctrl.successMessage}}</div>
-	            <div class="alert alert-danger" role="alert" ng-if="ctrl.errorMessage">{{ctrl.errorMessage}}</div>
-	            <form ng-submit="ctrl.submit()" enctype="multipart/form-data" name="myForm" class="form-horizontal">
-	                <input type="hidden" ng-model="ctrl.user.id" />
-	                <div class="row">
-	                    <div class="form-group col-md-12">
-	                        <label class="col-md-2 control-lable" for="uname">Nombre</label>
-	                        <div class="col-md-7">
-	                            <input type="text" ng-model="ctrl.user.nombre" id="uname" class="username form-control input-sm" placeholder="Escriba su nombre" required="required" maxlength="15" ng-pattern="/[aA-zZ\s]$/"/>
-	                        </div>
-	                    </div>
-	                </div>
-
-                     <div class="row">
-	                    <div class="form-group col-md-12">
-	                        <label class="col-md-2 control-lable" for="apellido_paterno">Apellido Paterno</label>
-	                        <div class="col-md-7">
-	                            <input type="text" ng-model="ctrl.user.apellido_paterno" id="apellido_paterno" class="form-control input-sm" placeholder="Escriba Apellido paterno." required="required" maxlength="15" ng-pattern="/[aA-zZ\s]$/"/>
-	                        </div>
-	                    </div>
-	                </div>
-                   
-                       <div class="row">
-	                    <div class="form-group col-md-12">
-	                        <label class="col-md-2 control-lable" for="apellido_paterno">Apellido Materno</label>
-	                        <div class="col-md-7">
-	                            <input type="text" ng-model="ctrl.user.apellido_materno" id="apellido_materno" class="form-control input-sm" placeholder="Escriba Apellido materno." maxlength="15" ng-pattern="/[aA-zZ\s]$/"/>
-	                        </div>
-	                    </div>
-	                </div>
-
-	                <div class="row">
-	                    <div class="form-group col-md-12">
-	                        <label class="col-md-2 control-lable" for="edad">Edad</label>
-	                        <div class="col-md-7">
-	                            <input type="number" ng-model="ctrl.user.edad" id="apellido_paterno" class="form-control input-sm" placeholder="Escriba edad." min="12" ng-pattern="ctrl.onlyIntegers" maxlength="3"/>
-	                        </div>
-	                    </div>
-	                </div>
-	
-	               <div class="row">
-	                     <div class="form-group col-md-12">
-	                      <label class="col-md-2 control-lable" for="fecha_nacimiento">Fecha Nacimiento</label>
-	                      <!--DATEPICKER  -->
-	                     
-						      <div class="col-md-7">
-						        <p class="input-group">
-						        <input type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy" ng-model="ctrl.user.fecha_nacimiento" is-open="status.opened" close-text="Close" />
-              <span class="input-group-btn">
-                <button type="button" class="btn btn-default" id="btnCal"  ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-              </span>
-						        </p>
-						      </div>
-						  
-						  <div>
+			<div class="formcontainer">
+				<div class="alert alert-success" role="alert"
+					ng-if="ctrl.successMessage">{{ctrl.successMessage}}</div>
+				<div class="alert alert-danger" role="alert"
+					ng-if="ctrl.errorMessage">{{ctrl.errorMessage}}</div>
+				<form ng-submit="ctrl.submit()" enctype="multipart/form-data"
+					name="myForm" class="form-horizontal">
+					<input type="hidden" ng-model="ctrl.user.id" />
+					<div class="row">
+						<div class="form-group col-md-12">
+							<label class="col-md-2 control-lable" for="uname">Nombre</label>
+							<div class="col-md-7">
+								<input type="text" ng-model="ctrl.user.nombre" id="uname"
+									class="username form-control input-sm"
+									placeholder="Escriba su nombre" required="required"
+									maxlength="15" ng-pattern="/[aA-zZ\s]$/" />
+							</div>
 						</div>
-	                      <!--  -->
-				            </div>
-				        </div>
-	                  <div class="row">
-	                   	  <div class="form-group col-md-12" ngf-drop="" ngf-change="setFoto($file, ctrl.user.)" ngf-pattern="'image/*'">
-            
-            <div class="form-group col-md-12">
-            <label  class="col-md-2 control-lable" for="field_logo">Foto</label>
-                <img data-ng-src="{{'data:' + ctrl.user.fotoContentType + ';base64,' + ctrl.user.foto}}" style="max-height: 100px;" ng-if="ctrl.user.foto" alt="Foto"/>
-                <div ng-if="ctrl.user.foto" class="help-block clearfix">
-                    <span class="pull-left">{{ctrl.user.fotoContentType}}, {{ctrl.user.byteSize(ctrl.user.foto)}}</span>
-                    <button type="button" ng-click="ctrl.user.foto=null;ctrl.user.fotoContentType=null;"
-                            class="btn btn-default btn-xs pull-right">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </button>
-                </div>
-                </div>
-             <div  class="col-md-7">
-               <input type="file" ng-file-select="onFileSelect($files)"   ng-model="ctrl.user.foto" name="file" ngf-accept="'image/*'"/>
-                </div>
-      
-              <span class="progress" ng-show="ctrl.user.foto.progress >= 0">
-                  <div style="width:{{ctrl.user.foto.progress}}%" ng-bind="ctrl.user.foto.progress + '%'" class="ng-binding"></div>
-              </span>
-              <span ng-show="ctrl.user.foto.result">Upload Successful</span>
-              
-                <input type="hidden" class="form-control" name="foto" id="field_logo"
-                    ng-model="ctrl.user.foto"
-                    maxbytes="11000" />
-            <input type="hidden" class="form-control" name="fotoContentType" id="field_fotoContentType"
-                    ng-model="ctrl.user.fotoContentType" />
-                    
-              
-               
-	  </div>
-	                </div>
-	                
-	                
-	                
-	                
-	                <div class="row">
-	                    <div class="form-actions floatRight">
-	                        <input type="submit"  value="{{!ctrl.user.id ? 'Agregar Perfil' : 'Actualizar Perfil'}}" class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid || myForm.$pristine"/>
-	                        <button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-sm" ng-disabled="myForm.$pristine">Limpiar</button>
-	                    </div>
-	                </div>
-	            </form>
-	            
-	          
-   <b>Progress:</b>
-  <progress value="{{progress}}"></progress>
-    	    </div>
-		</div>	
-    </div>
-    <div class="panel panel-default">
-        <!-- Default panel contents -->
-        <div class="panel-heading"><span class="lead">Lista de Perfiles </span>
-         <form name="myForm2" class="form-horizontal">
-         <div class="row">
-	                    <div class="form-group col-md-12">
-	                       
-	                        <div class="col-md-4">
-	                         <label class="col-md-2 control-lable" for="uname">Nombre</label>
-	                            <input type="text"  id="namefilter" name="namefilter"  class="form-control input-sm"  maxlength="15" ng-pattern="/[aA-zZ\s]$/"/>
-	                        </div>
-	                        <div class="col-md-4">
-	                         <label class="col-md-2 control-lable" for="uname">Paterno</label>
-	                            <input type="text"  id="paternofilter" name="paternofilter"  class="form-control input-sm"  maxlength="15" ng-pattern="/[aA-zZ\s]$/"/>
-	                        </div>
-	                        <div class="col-md-4">
-	                         <label class="col-md-2 control-lable" for="uname">Materno</label>
-	                            <input type="text"  id="maternofilter" name="maternofilter"  class="form-control input-sm"  maxlength="15" ng-pattern="/[aA-zZ\s]$/"/>
-	                        </div>
-	                    </div>
-	                </div>
-         <button type="submit" value="SEARCH" ng-click="ctrl.buscar(ctrl.namefilter)" class="btn btn-primary btn-sm">Buscar</button>
-        
-         </form>
-         </div>
-		<div class="panel-body">
-			<div class="table-responsive">
-		        <table class="table table-hover">
-		            <thead>
-		            <tr>
-		                <th>Nombre</th>
-		                <th>Foto</th> 
-		                <th width="100"></th>
-		                <th width="100"></th>
-		            </tr>
-		            </thead>
-		            <tbody>
-		            <tr ng-repeat="u in ctrl.getAllUsers()">
-		                <td>{{u.nombre}}</td>
-		                <td><img style="max-height: 70px;" ng-src="data:image/JPEG;base64,{{u.foto}}"/></td>
-		                <td><button type="button" ng-click="ctrl.editUser(u.id)" class="btn btn-success btn-xs">Editar</button></td>
-		                <td><button type="button" ng-click="ctrl.removeUser(u.id)" class="btn btn-danger btn-xs">Eliminar</button></td>
-		            </tr>
-		            </tbody>
-		        </table>		
+					</div>
+
+					<div class="row">
+						<div class="form-group col-md-12">
+							<label class="col-md-2 control-lable" for="apellido_paterno">Apellido
+								Paterno</label>
+							<div class="col-md-7">
+								<input type="text" ng-model="ctrl.user.apellido_paterno"
+									id="apellido_paterno" class="form-control input-sm"
+									placeholder="Escriba Apellido paterno." required="required"
+									maxlength="15" ng-pattern="/[aA-zZ\s]$/" />
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group col-md-12">
+							<label class="col-md-2 control-lable" for="apellido_paterno">Apellido
+								Materno</label>
+							<div class="col-md-7">
+								<input type="text" ng-model="ctrl.user.apellido_materno"
+									id="apellido_materno" class="form-control input-sm"
+									placeholder="Escriba Apellido materno." maxlength="15"
+									ng-pattern="/[aA-zZ\s]$/" />
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group col-md-12">
+							<label class="col-md-2 control-lable" for="edad">Edad</label>
+							<div class="col-md-7">
+								<input type="number" ng-model="ctrl.user.edad"
+									id="apellido_paterno" class="form-control input-sm"
+									placeholder="Escriba edad." min="12"
+									ng-pattern="ctrl.onlyIntegers" maxlength="3" />
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group col-md-12">
+							<label class="col-md-2 control-lable" for="fecha_nacimiento">Fecha
+								Nacimiento</label>
+							<!--DATEPICKER  -->
+
+							<div class="col-md-7">
+								<p class="input-group">
+									<input type="text" class="form-control"
+										uib-datepicker-popup="dd/MM/yyyy"
+										ng-model="ctrl.user.fecha_nacimiento" is-open="status.opened"
+										close-text="Close" /> <span class="input-group-btn">
+										<button type="button" class="btn btn-default" id="btnCal"
+											ng-click="open($event)">
+											<i class="glyphicon glyphicon-calendar"></i>
+										</button>
+									</span>
+								</p>
+							</div>
+
+							<div></div>
+							<!--  -->
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-md-12" ngf-drop=""
+							ngf-change="setFoto($file, ctrl.user.)" ngf-pattern="'image/*'">
+
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-lable" for="field_logo">Foto</label>
+								<img
+									data-ng-src="{{'data:' + ctrl.user.fotoContentType + ';base64,' + ctrl.user.foto}}"
+									style="max-height: 100px;" ng-if="ctrl.user.foto" alt="Foto" />
+								<div ng-if="ctrl.user.foto" class="help-block clearfix">
+									<span class="pull-left">{{ctrl.user.fotoContentType}},
+										{{ctrl.user.byteSize(ctrl.user.foto)}}</span>
+									<button type="button"
+										ng-click="ctrl.user.foto=null;ctrl.user.fotoContentType=null;"
+										class="btn btn-default btn-xs pull-right">
+										<span class="glyphicon glyphicon-remove"></span>
+									</button>
+								</div>
+							</div>
+							<div class="col-md-7">
+								<input type="file" ng-file-select="onFileSelect($files)"
+									ng-model="ctrl.user.foto" name="file" ngf-accept="'image/*'" />
+							</div>
+
+							<span class="progress" ng-show="ctrl.user.foto.progress >= 0">
+								<div style="width: {{ctrl.user.foto.progress"
+									ng-bind="ctrl.user.foto.progress + '%'" class="ng-binding"></div>
+							</span> <span ng-show="ctrl.user.foto.result">Upload Successful</span> <input
+								type="hidden" class="form-control" name="foto" id="field_logo"
+								ng-model="ctrl.user.foto" maxbytes="11000" /> <input
+								type="hidden" class="form-control" name="fotoContentType"
+								id="field_fotoContentType" ng-model="ctrl.user.fotoContentType" />
+
+
+
+						</div>
+					</div>
+
+
+
+
+					<div class="row">
+						<div class="form-actions floatRight">
+							<input type="submit"
+								value="{{!ctrl.user.id ? 'Agregar Perfil' : 'Actualizar Perfil'}}"
+								class="btn btn-primary btn-sm"
+								ng-disabled="myForm.$invalid || myForm.$pristine" />
+							<button type="button" ng-click="ctrl.reset()"
+								class="btn btn-warning btn-sm" ng-disabled="myForm.$pristine">Limpiar</button>
+						</div>
+					</div>
+				</form>
+
 			</div>
 		</div>
-    </div>  
+	</div>
+	<div class="panel panel-default">
+		<!-- Default panel contents -->
+		<div class="panel-heading">
+			<span class="lead">Lista de Perfiles </span>
+			<form name="myForm2" class="form-horizontal">
+				<div class="row">
+					<div class="form-group col-md-12">
+
+						<div class="col-md-4">
+							<label class="col-md-2 control-lable" for="uname">Nombre</label>
+							<input type="text" id="namefilter" name="namefilter"
+								class="form-control input-sm" maxlength="15"
+								ng-pattern="/[aA-zZ\s]$/" />
+						</div>
+						<div class="col-md-4">
+							<label class="col-md-2 control-lable" for="uname">Paterno</label>
+							<input type="text" id="paternofilter" name="paternofilter"
+								class="form-control input-sm" maxlength="15"
+								ng-pattern="/[aA-zZ\s]$/" />
+						</div>
+						<div class="col-md-4">
+							<label class="col-md-2 control-lable" for="uname">Materno</label>
+							<input type="text" id="maternofilter" name="maternofilter"
+								class="form-control input-sm" maxlength="15"
+								ng-pattern="/[aA-zZ\s]$/" />
+						</div>
+					</div>
+				</div>
+				<button type="submit" value="SEARCH"
+					ng-click="ctrl.buscar(ctrl.namefilter)"
+					class="btn btn-primary btn-sm">Buscar</button>
+
+			</form>
+		</div>
+		<div class="panel-body">
+			<div class="table-responsive">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Foto</th>
+							<th width="100"></th>
+							<th width="100"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="u in ctrl.getAllUsers()">
+							<td>{{u.nombre}}</td>
+							<td><img style="max-height: 70px;"
+								ng-src="data:image/JPEG;base64,{{u.foto}}" /></td>
+							<td><button type="button" ng-click="ctrl.editUser(u.id)"
+									class="btn btn-success btn-xs">Editar</button></td>
+							<td><button type="button" ng-click="ctrl.removeUser(u.id)"
+									class="btn btn-danger btn-xs">Eliminar</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 </div>
