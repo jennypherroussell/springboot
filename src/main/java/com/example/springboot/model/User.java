@@ -1,5 +1,9 @@
 package com.example.springboot.model;
 
+import javax.persistence.Column;
+import javax.persistence.Lob;
+import javax.validation.constraints.Size;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -13,14 +17,30 @@ public class User {
     private String apellido_paterno;
     private String apellido_materno;
     private String fecha_nacimiento;
-    private String foto;
-    public String getFoto() {
+   
+    private int edad;
+    
+    
+    @Size(max = 11000)
+    @Lob
+    @Column(name = "foto")
+    private byte[] foto;
+    
+    @Column(name = "foto_content_type")
+    private String fotoContentType;
+    
+	public byte[] getFoto() {
 		return foto;
 	}
-	public void setFoto(String foto) {
+	public String getFotoContentType() {
+		return fotoContentType;
+	}
+	public void setFotoContentType(String fotoContentType) {
+		this.fotoContentType = fotoContentType;
+	}
+	public void setFoto(byte[] foto) {
 		this.foto = foto;
 	}
-	private int edad;
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub

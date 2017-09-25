@@ -1,9 +1,12 @@
-var app = angular.module('santanderApp',['ui.router','ngStorage','ui.bootstrap',]);
+var app = angular.module('santanderApp',['ui.router','ngStorage','ui.bootstrap','ngFileUpload']);
 
 app.constant('urls', {
     BASE: 'http://localhost:8090',
     USER_SERVICE_API : 'http://localhost:8090/api/user/'
 });
+
+
+
 
 app.config(['$stateProvider', '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
